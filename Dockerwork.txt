@@ -1,0 +1,571 @@
+
+docker run --hostname=381ad39c428f --user=472 --mac-address=02:42:ac:11:00:02 --env=PATH=/usr/share/grafana/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin --env=GF_PATHS_CONFIG=/etc/grafana/grafana.ini --env=GF_PATHS_DATA=/var/lib/grafana --env=GF_PATHS_HOME=/usr/share/grafana --env=GF_PATHS_LOGS=/var/log/grafana --env=GF_PATHS_PLUGINS=/var/lib/grafana/plugins --env=GF_PATHS_PROVISIONING=/etc/grafana/provisioning --workdir=/usr/share/grafana --label='maintainer=Grafana Labs <hello@grafana.com>' --runtime=runc -d grafana/grafana:latest
+
+docker run --hostname=2d579ab3c64b --user=node-red --mac-address=02:42:ac:11:00:03 --env=PATH=/usr/src/node-red/node_modules/.bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin --env=NODE_VERSION=16.20.2 --env=YARN_VERSION=1.22.19 --env=NODE_RED_VERSION=v3.1.3 --env=NODE_PATH=/usr/src/node-red/node_modules:/data/node_modules --env=FLOWS=flows.json --workdir=/usr/src/node-red --label='authors=Dave Conway-Jones, Nick O'Leary, James Thomas, Raymond Mouthaan' --label='org.label-schema.arch=' --label='org.label-schema.build-date=2024-01-11T11:19:19Z' --label='org.label-schema.description=Low-code programming for event-driven applications.' --label='org.label-schema.docker.dockerfile=.docker/Dockerfile.alpine' --label='org.label-schema.license=Apache-2.0' --label='org.label-schema.name=Node-RED' --label='org.label-schema.url=https://nodered.org' --label='org.label-schema.vcs-ref=' --label='org.label-schema.vcs-type=Git' --label='org.label-schema.vcs-url=https://github.com/node-red/node-red-docker' --label='org.label-schema.version=3.1.3' --runtime=runc -d nodered/node-red:latest
+
+docker run --hostname=97eb4dd4439f --mac-address=02:42:ac:11:00:04 --env=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin --env=VERSION=2.0.18 --env=DOWNLOAD_SHA256=d665fe7d0032881b1371a47f34169ee4edab67903b2cd2b4c083822823f4448a --env=GPG_KEYS=A0D6EEA1DCAE49A635A3B2F0779B22DFB3E717B7 --env=LWS_VERSION=4.2.1 --env=LWS_SHA256=842da21f73ccba2be59e680de10a8cce7928313048750eb6ad73b6fa50763c51 --volume=/mosquitto/data --volume=/mosquitto/log --label='description=Eclipse Mosquitto MQTT Broker' --label='maintainer=Roger Light <roger@atchoo.org>' --runtime=runc -d eclipse-mosquitto:latest
+
+docker run --hostname=b3701db8e58b --mac-address=02:42:ac:11:00:05 --env=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin --env=INFLUXDB_VERSION=2.7.5 --env=INFLUX_CLI_VERSION=2.7.3 --env=INFLUX_CONFIGS_PATH=/etc/influxdb2/influx-configs --env=INFLUXD_INIT_PORT=9999 --env=INFLUXD_INIT_PING_ATTEMPTS=600 --env=DOCKER_INFLUXDB_INIT_CLI_CONFIG_NAME=default --volume=/etc/influxdb2 --volume=/var/lib/influxdb2 --runtime=runc -d influxdb:alpine
+
+docker run --hostname=57104078c76d --mac-address=02:42:ac:11:00:06 --env=PATH=/pnpm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin --env=NODE_VERSION=18.17.1 --env=YARN_VERSION=1.22.19 --env=PNPM_HOME=/pnpm --volume=/app/data --workdir=/app --runtime=runc -d louislam/dockge:latest
+
+
+sudo docker network create centralPost
+//docker network create -d macvlan --subnet 192.168.1.0/24 --gateway 192.168.1..1 -o parent=  TomsNet
+
+wmic nic get AdapterType, Name, Installed, MACAddress, PowerManagementSupported, Speed
+
+
+sudo docker run --hostname=381ad39c428f --name gr --network centralPost --user=472 --mac-address=02:42:ac:11:00:02 --env=PATH=/usr/share/grafana/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin --env=GF_PATHS_CONFIG=/etc/grafana/grafana.ini --env=GF_PATHS_DATA=/var/lib/grafana --env=GF_PATHS_HOME=/usr/share/grafana --env=GF_PATHS_LOGS=/var/log/grafana --env=GF_PATHS_PLUGINS=/var/lib/grafana/plugins --env=GF_PATHS_PROVISIONING=/etc/grafana/provisioning --workdir=/usr/share/grafana --label='maintainer=Grafana Labs <hello@grafana.com>' --runtime=runc -d grafana/grafana:latest
+
+sudo docker run --hostname=2d579ab3c64b --name nr --network centralPost --user=node-red --mac-address=02:42:ac:11:00:03 -p 1880:1880 --env=PATH=/usr/src/node-red/node_modules/.bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin --env=NODE_VERSION=16.20.2 --env=YARN_VERSION=1.22.19 --env=NODE_RED_VERSION=v3.1.3 --env=NODE_PATH=/usr/src/node-red/node_modules:/data/node_modules --env=FLOWS=flows.json --workdir=/usr/src/node-red --label='authors=Dave Conway-Jones, Nick OLeary, James Thomas, Raymond Mouthaan' --label='org.label-schema.arch=' --label='org.label-schema.build-date=2024-01-11T11:19:19Z' --label='org.label-schema.description=Low-code programming for event-driven applications.' --label='org.label-schema.docker.dockerfile=.docker/Dockerfile.alpine' --label='org.label-schema.license=Apache-2.0' --label='org.label-schema.name=Node-RED' --label='org.label-schema.url=https://nodered.org' --label='org.label-schema.vcs-ref=' --label='org.label-schema.vcs-type=Git' --label='org.label-schema.vcs-url=https://github.com/node-red/node-red-docker' --label='org.label-schema.version=3.1.3' --runtime=runc -d nodered/node-red:latest
+
+sudo docker run --hostname=97eb4dd4439f --name mqtt --network centralPost --mac-address=02:42:ac:11:00:04 -p 1883:1883 --env=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin --env=VERSION=2.0.18 --env=DOWNLOAD_SHA256=d665fe7d0032881b1371a47f34169ee4edab67903b2cd2b4c083822823f4448a --env=GPG_KEYS=A0D6EEA1DCAE49A635A3B2F0779B22DFB3E717B7 --env=LWS_VERSION=4.2.1 --env=LWS_SHA256=842da21f73ccba2be59e680de10a8cce7928313048750eb6ad73b6fa50763c51 --volume=/mosquitto/data --volume=/mosquitto/log --label='description=Eclipse Mosquitto MQTT Broker' --label='maintainer=Roger Light <roger@atchoo.org>' --runtime=runc -d eclipse-mosquitto:latest
+
+sudo docker run --hostname=b3701db8e58b --name idb --network centralPost --mac-address=02:42:ac:11:00:05 --env=PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin --env=INFLUXDB_VERSION=2.7.5 --env=INFLUX_CLI_VERSION=2.7.3 --env=INFLUX_CONFIGS_PATH=/etc/influxdb2/influx-configs --env=INFLUXD_INIT_PORT=9999 --env=INFLUXD_INIT_PING_ATTEMPTS=600 --env=DOCKER_INFLUXDB_INIT_CLI_CONFIG_NAME=default --volume=/etc/influxdb2 --volume=/var/lib/influxdb2 --runtime=runc -d influxdb:alpine
+
+docker run --hostname=57104078c76d --name dge --network centralPost --mac-address=02:42:ac:11:00:06 -p 5001:5001 --env=PATH=/pnpm:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin --env=NODE_VERSION=18.17.1 --env=YARN_VERSION=1.22.19 --env=PNPM_HOME=/pnpm --volume=/app/data --workdir=/app --runtime=runc -d louislam/dockge:latest
+
+
+
+  influxdb:
+    image: influxdb:latest
+    ports:
+      - '8086:8086'
+    volumes:
+      - influxdb-storage:/var/lib/influxdb
+    environment:
+      - INFLUXDB_DB=db0
+      - INFLUXDB_ADMIN_USER=${INFLUXDB_USERNAME}
+      - INFLUXDB_ADMIN_PASSWORD=${INFLUXDB_PASSWORD}
+
+
+
+
+
+
+docker run -p 3000:3000 --name semaphore \
+	-e SEMAPHORE_DB_DIALECT=bolt \
+	-e SEMAPHORE_ADMIN=admin \
+	-e SEMAPHORE_ADMIN_PASSWORD=changeme \
+	-e SEMAPHORE_ADMIN_NAME=Admin \
+	-e SEMAPHORE_ADMIN_EMAIL=admin@localhost \
+	-d semaphoreui/semaphore:latest
+
+
+
+
+docker-compose.yml for minimal configuration:
+
+services:
+  semaphore:
+    ports:
+      - 3000:3000
+    image: semaphoreui/semaphore:latest
+    environment:
+      SEMAPHORE_DB_DIALECT: bolt
+      SEMAPHORE_ADMIN_PASSWORD: changeme
+      SEMAPHORE_ADMIN_NAME: admin
+      SEMAPHORE_ADMIN_EMAIL: admin@localhost
+      SEMAPHORE_ADMIN: admin
+
+https://hub.docker.com/r/guacamole/guacd
+docker run --name some-guacd -d guacamole/guacd
+docker run --name some-guacd -d -p 4822:4822 guacamole/guacd
+docker run --name some-app --link some-guacd:guacd -d application-that-uses-guacd
+
+https://hub.docker.com/r/guacamole/guacamole
+What is Apache Guacamole?
+Apache Guacamole is a clientless remote desktop gateway. It supports standard protocols like VNC and RDP. We call it clientless because no plugins or client software are required.
+
+Thanks to HTML5, once Guacamole is installed on a server, all you need to access your desktops is a web browser.
+
+How to use this image
+Using this image will require an existing, running Docker container with the guacd image, and another Docker container providing either a PostgreSQL or MySQL database.
+
+The name of the database and all associated credentials are specified with environment variables given when the container is created. All other configuration information is generated from the Docker links.
+
+Beware that you will need to initialize the database manually. Guacamole will not automatically create its own tables, but SQL scripts are provided to do this.
+
+Once the Guacamole image is running, Guacamole will be accessible at http://[address of container]:8080/guacamole/. The instructions below use the -p 8080:8080 option to expose this port at the level of the machine hosting Docker, as well.
+
+Deploying Guacamole with PostgreSQL authentication
+docker run --name some-guacamole --link some-guacd:guacd \
+    --link some-postgres:postgres      \
+    -e POSTGRES_DATABASE=guacamole_db  \
+    -e POSTGRES_USER=guacamole_user    \
+    -e POSTGRES_PASSWORD=some_password \
+    -d -p 8080:8080 guacamole/guacamole
+Linking Guacamole to PostgreSQL requires three environment variables. If any of these environment variables are omitted, you will receive an error message, and the image will stop:
+
+POSTGRES_DATABASE - The name of the database to use for Guacamole authentication.
+POSTGRES_USER - The user that Guacamole will use to connect to PostgreSQL.
+POSTGRES_PASSWORD - The password that Guacamole will provide when connecting to PostgreSQL as POSTGRES_USER.
+Initializing the PostgreSQL database
+If your database is not already initialized with the Guacamole schema, you will need to do so prior to using Guacamole. A convenience script for generating the necessary SQL to do this is included in the Guacamole image.
+
+To generate a SQL script which can be used to initialize a fresh PostgreSQL database as documented in the Guacamole manual:
+
+docker run --rm guacamole/guacamole /opt/guacamole/bin/initdb.sh --postgres > initdb.sql
+Alternatively, you can use the SQL scripts included with guacamole-auth-jdbc.
+
+Once this script is generated, you must:
+
+Create a database for Guacamole within PostgreSQL, such as guacamole_db.
+Run the script on the newly-created database.
+Create a user for Guacamole within PostgreSQL with access to the tables and sequences of this database, such as guacamole_user.
+The process for doing this via the psql and createdb utilities included with PostgreSQL is documented in the Guacamole manual.
+
+Deploying Guacamole with MySQL authentication
+docker run --name some-guacamole --link some-guacd:guacd \
+    --link some-mysql:mysql         \
+    -e MYSQL_DATABASE=guacamole_db  \
+    -e MYSQL_USER=guacamole_user    \
+    -e MYSQL_PASSWORD=some_password \
+    -d -p 8080:8080 guacamole/guacamole
+Linking Guacamole to MySQL requires three environment variables. If any of these environment variables are omitted, you will receive an error message, and the image will stop:
+
+MYSQL_DATABASE - The name of the database to use for Guacamole authentication.
+MYSQL_USER - The user that Guacamole will use to connect to MySQL.
+MYSQL_PASSWORD - The password that Guacamole will provide when connecting to MySQL as MYSQL_USER.
+Initializing the MySQL database
+If your database is not already initialized with the Guacamole schema, you will need to do so prior to using Guacamole. A convenience script for generating the necessary SQL to do this is included in the Guacamole image.
+
+To generate a SQL script which can be used to initialize a fresh MySQL database as documented in the Guacamole manual:
+
+docker run --rm guacamole/guacamole /opt/guacamole/bin/initdb.sh --mysql > initdb.sql
+Alternatively, you can use the SQL scripts included with guacamole-auth-jdbc.
+
+Once this script is generated, you must:
+
+Create a database for Guacamole within MySQL, such as guacamole_db.
+Create a user for Guacamole within MySQL with access to this database, such as guacamole_user.
+Run the script on the newly-created database.
+The process for doing this via the mysql utility included with MySQL is documented in the Guacamole manual.
+
+
+
+
+
+https://hub.docker.com/_/mariadb
+https://hub.docker.com/_/phpmyadmin
+
+
+
+
+
+
+
+
+
+
+
+
+PS C:\Users\Admin> wsl
+Toms-desktop:/tmp/docker-desktop-root/mnt/host/c/Users/Admin# ip address
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host
+       valid_lft forever preferred_lft forever
+2: eth0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1280 qdisc mq state UP qlen 1000
+    link/ether 00:15:5d:ea:0d:6b brd ff:ff:ff:ff:ff:ff
+    inet 172.28.91.255/20 brd 172.28.95.255 scope global eth0
+       valid_lft forever preferred_lft forever
+    inet6 fe80::215:5dff:feea:d6b/64 scope link
+       valid_lft forever preferred_lft forever
+Toms-desktop:/tmp/docker-desktop-root/mnt/host/c/Users/Admin#
+
+ls
+
+
+
+
+docker run -d -p 9088:8088 --name ignition-test inductiveautomation/ignition:8.1.36 \
+    -n docker-test -a localhost -h 9088 -s 9043
+
+https://docs.inductiveautomation.com/display/DOC81/Docker+Image
+
+IGNITION_EDITION 	8.1.8+	Set to standard, edge , or maker , used to set value for initial gateway auto-commissioning.
+IGNITION_LICENSE_KEY 	8.1.8+	
+8-character license key (XXXX-XXXX) for leased activation (e.g. Maker Edition), used to set value for initial gateway auto-commissioning
+
+The following feature is new in Ignition version 8.1.19
+Click here to check out the other new features
+
+You can activate multiple 8-character license keys at the same time in a comma-delimited format, such as: ABCD-1234,DCBA-4321,WXYZ-6789,ZYXW-9876.
+
+This feature was changed in Ignition version 8.1.20:
+Changes to this variable will now update the leased activation license configuration after initial commissioning. Previously, they would only be absorbed if an existing leased activation configuration was not present.
+IGNITION_ACTIVATION_TOKEN 	8.1.8+	
+Activation token for the license key.
+
+The following feature is new in Ignition version 8.1.19
+Click here to check out the other new features
+You can activate multiple 8-character license keys at the same time in a comma-delimited format, such as: abcdef1234...789,bcdef2345...890.
+This feature was changed in Ignition version 8.1.20:
+Changes to this variable will now update the leased activation license configuration after initial commissioning. Previously, they would only be absorbed if an existing leased activation configuration was not present.
+
+
+
+
+
+
+network setup for desktop
+
+Name:	Ethernet
+Description:	Killer E2200 Gigabit Ethernet Controller
+Physical address (MAC):	4c:cc:6a:8b:4e:6d
+Status:	Not operational
+Maximum transmission unit:	1500
+IPv4 address:	169.254.227.49/16
+IPv6 address:	fe80::3906:64f:3793:85a0%18/64
+DNS servers:	fec0:0:0:ffff::1%1, fec0:0:0:ffff::2%1, fec0:0:0:ffff::3%1
+Connectivity (IPv4/IPv6):	Disconnected
+Name:	vEthernet (WSL)
+Description:	Hyper-V Virtual Ethernet Adapter
+Physical address (MAC):	00:15:5d:46:1f:d5
+Status:	Operational
+Maximum transmission unit:	1500
+IPv4 address:	172.28.80.1/20
+IPv6 address:	fe80::7085:fd33:3852:b6b%48/64
+DNS servers:	fec0:0:0:ffff::1%1, fec0:0:0:ffff::2%1, fec0:0:0:ffff::3%1
+Connectivity (IPv4/IPv6):	Disconnected
+Name:	Local Area Connection* 11
+Description:	Microsoft Wi-Fi Direct Virtual Adapter #3
+Physical address (MAC):	d6:5d:64:19:30:af
+Status:	Not operational
+Maximum transmission unit:	1500
+IPv4 address:	169.254.78.161/16
+IPv6 address:	fe80::1917:698d:29dd:5023%21/64
+DNS servers:	fec0:0:0:ffff::1%1, fec0:0:0:ffff::2%1, fec0:0:0:ffff::3%1
+Connectivity (IPv4/IPv6):	Disconnected
+Name:	Local Area Connection* 12
+Description:	Microsoft Wi-Fi Direct Virtual Adapter #4
+Physical address (MAC):	d4:5d:64:19:30:af
+Status:	Not operational
+Maximum transmission unit:	1500
+IPv4 address:	169.254.33.67/16
+IPv6 address:	fe80::cca7:f0c2:9218:59b2%2/64
+DNS servers:	fec0:0:0:ffff::1%1, fec0:0:0:ffff::2%1, fec0:0:0:ffff::3%1
+Connectivity (IPv4/IPv6):	Disconnected
+Name:	VMware Network Adapter VMnet1
+Description:	VMware Virtual Ethernet Adapter for VMnet1
+Physical address (MAC):	00:50:56:c0:00:01
+Status:	Operational
+Maximum transmission unit:	1500
+IPv4 address:	192.168.136.1/24
+IPv6 address:	fe80::c1f2:12e7:7507:6318%20/64
+DNS servers:	fec0:0:0:ffff::1%1, fec0:0:0:ffff::2%1, fec0:0:0:ffff::3%1
+Connectivity (IPv4/IPv6):	Disconnected
+Name:	VMware Network Adapter VMnet8
+Description:	VMware Virtual Ethernet Adapter for VMnet8
+Physical address (MAC):	00:50:56:c0:00:08
+Status:	Operational
+Maximum transmission unit:	1500
+IPv4 address:	192.168.81.1/24
+IPv6 address:	fe80::732e:faea:ac72:320d%17/64
+DNS servers:	fec0:0:0:ffff::1%1, fec0:0:0:ffff::2%1, fec0:0:0:ffff::3%1
+Connectivity (IPv4/IPv6):	Disconnected
+Name:	Wi-Fi 2
+Description:	ASUS Wireless PCI-E Adapter #2
+Physical address (MAC):	d4:5d:64:19:30:af
+Status:	Operational
+Maximum transmission unit:	1500
+Link speed (Receive/Transmit):	144/144 (Mbps)
+DHCP enabled:	Yes
+DHCP servers:	192.168.1.1
+DHCP lease obtained:	‎Saturday, ‎February ‎3, ‎2024 2:08:18 AM
+DHCP lease expires:	‎Sunday, ‎February ‎4, ‎2024 2:08:18 AM
+IPv4 address:	192.168.1.140/16
+IPv6 address:	fe80::12e8:8494:4aad:97de%22/64
+Default gateway:	192.168.1.1
+DNS servers:	1.1.1.1, 192.168.1.138
+Network name:	TheMist 2
+Network category:	Public
+Connectivity (IPv4/IPv6):	Connected to Internet / Connected to unknown network
+Name:	Wi-Fi
+Description:	ASUS Wireless PCI-E Adapter
+Physical address (MAC):	d4:5d:64:19:30:af
+Status:	Not Present
+Maximum transmission unit:	0
+Connectivity (IPv4/IPv6):	Disconnected
+Name:	Local Area Connection* 9
+Description:	Microsoft Wi-Fi Direct Virtual Adapter
+Physical address (MAC):	d6:5d:64:19:30:af
+Status:	Not Present
+Maximum transmission unit:	0
+Connectivity (IPv4/IPv6):	Disconnected
+
+
+connected to hornet
+SSID:	HornetNet_Ext
+Protocol:	Wi-Fi 4 (802.11n)
+Security type:	WPA2-Personal
+Network band:	2.4 GHz
+Network channel:	11
+Link speed (Receive/Transmit):	144/144 (Mbps)
+Link-local IPv6 address:	fe80::12e8:8494:4aad:97de%22
+IPv4 address:	10.1.1.159
+IPv4 DNS servers:	10.1.1.1
+Manufacturer:	Realtek Semiconductor Corp.
+Description:	ASUS Wireless PCI-E Adapter #2
+Driver version:	2024.0.4.208
+Physical address (MAC):	D4-5D-64-19-30-AF
+
+
+
+
+
+
+
+from proxmox before card swap
+
+
+Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
+permitted by applicable law.
+Last login: Sat Feb  3 08:25:55 EST 2024 on pts/0
+root@pmx:~# ip address
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host noprefixroute 
+       valid_lft forever preferred_lft forever
+2: eno1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast master vmbr0 state UP group default qlen 1000
+    link/ether 90:b1:1c:93:dc:f4 brd ff:ff:ff:ff:ff:ff
+    altname enp0s25
+3: enp9s4: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast master vmbr1 state UNKNOWN group default qlen 1000
+    link/ether 00:c0:a8:87:dd:75 brd ff:ff:ff:ff:ff:ff
+4: vmbr0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default qlen 1000
+    link/ether 90:b1:1c:93:dc:f4 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.1.250/24 scope global vmbr0
+       valid_lft forever preferred_lft forever
+    inet6 fe80::92b1:1cff:fe93:dcf4/64 scope link 
+       valid_lft forever preferred_lft forever
+5: vmbr1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default qlen 1000
+    link/ether 00:c0:a8:87:dd:75 brd ff:ff:ff:ff:ff:ff
+    inet 10.1.1.250/13 scope global vmbr1
+       valid_lft forever preferred_lft forever
+    inet6 fe80::2c0:a8ff:fe87:dd75/64 scope link 
+       valid_lft forever preferred_lft forever
+10: tap100i0: <BROADCAST,MULTICAST,PROMISC,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast master fwbr100i0 state UNKNOWN group default qlen 1000
+    link/ether 2a:df:2d:52:8c:32 brd ff:ff:ff:ff:ff:ff
+11: fwbr100i0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default qlen 1000
+    link/ether da:8c:c3:0b:c0:91 brd ff:ff:ff:ff:ff:ff
+12: fwpr100p0@fwln100i0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue master vmbr0 state UP group default qlen 1000
+    link/ether 9a:c4:b1:73:39:33 brd ff:ff:ff:ff:ff:ff
+13: fwln100i0@fwpr100p0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue master fwbr100i0 state UP group default qlen 1000
+    link/ether da:8c:c3:0b:c0:91 brd ff:ff:ff:ff:ff:ff
+14: tap100i1: <BROADCAST,MULTICAST,PROMISC,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast master fwbr100i1 state UNKNOWN group default qlen 1000
+    link/ether 36:6f:c9:c9:7c:15 brd ff:ff:ff:ff:ff:ff
+15: fwbr100i1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default qlen 1000
+    link/ether 66:8b:a2:0c:d1:dd brd ff:ff:ff:ff:ff:ff
+16: fwpr100p1@fwln100i1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue master vmbr1 state UP group default qlen 1000
+    link/ether a2:bf:0c:be:03:36 brd ff:ff:ff:ff:ff:ff
+17: fwln100i1@fwpr100p1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue master fwbr100i1 state UP group default qlen 1000
+    link/ether 66:8b:a2:0c:d1:dd brd ff:ff:ff:ff:ff:ff
+18: tap106i0: <BROADCAST,MULTICAST,PROMISC,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast master fwbr106i0 state UNKNOWN group default qlen 1000
+    link/ether c2:61:14:28:e9:90 brd ff:ff:ff:ff:ff:ff
+19: fwbr106i0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default qlen 1000
+    link/ether c2:88:ae:a6:26:fd brd ff:ff:ff:ff:ff:ff
+20: fwpr106p0@fwln106i0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue master vmbr1 state UP group default qlen 1000
+    link/ether 3e:66:a7:73:d8:87 brd ff:ff:ff:ff:ff:ff
+21: fwln106i0@fwpr106p0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue master fwbr106i0 state UP group default qlen 1000
+    link/ether c2:88:ae:a6:26:fd brd ff:ff:ff:ff:ff:ff
+26: tap107i0: <BROADCAST,MULTICAST,PROMISC,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast master fwbr107i0 state UNKNOWN group default qlen 1000
+    link/ether 46:8e:64:ad:1b:e6 brd ff:ff:ff:ff:ff:ff
+27: fwbr107i0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default qlen 1000
+    link/ether 36:4f:49:ce:14:94 brd ff:ff:ff:ff:ff:ff
+28: fwpr107p0@fwln107i0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue master vmbr1 state UP group default qlen 1000
+    link/ether 22:23:cf:d9:79:e8 brd ff:ff:ff:ff:ff:ff
+29: fwln107i0@fwpr107p0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue master fwbr107i0 state UP group default qlen 1000
+    link/ether 36:4f:49:ce:14:94 brd ff:ff:ff:ff:ff:ff
+
+
+
+
+
+
+
+
+
+root@pmx:~# ip address
+1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+    inet 127.0.0.1/8 scope host lo
+       valid_lft forever preferred_lft forever
+    inet6 ::1/128 scope host noprefixroute 
+       valid_lft forever preferred_lft forever
+2: eno1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast master vmbr0 state UP group default qlen 1000
+    link/ether 90:b1:1c:93:dc:f4 brd ff:ff:ff:ff:ff:ff
+    altname enp0s25
+3: enp9s0f0: <NO-CARRIER,BROADCAST,MULTICAST,UP> mtu 1500 qdisc mq master vmbr1 state DOWN group default qlen 1000
+    link/ether 1c:86:0b:22:56:82 brd ff:ff:ff:ff:ff:ff
+4: enp9s0f1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc mq state UP group default qlen 1000
+    link/ether 1c:86:0b:22:56:83 brd ff:ff:ff:ff:ff:ff
+    inet6 fe80::1e86:bff:fe22:5683/64 scope link 
+       valid_lft forever preferred_lft forever
+5: vmbr0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default qlen 1000
+    link/ether 90:b1:1c:93:dc:f4 brd ff:ff:ff:ff:ff:ff
+    inet 192.168.1.250/24 scope global vmbr0
+       valid_lft forever preferred_lft forever
+    inet6 fe80::92b1:1cff:fe93:dcf4/64 scope link 
+       valid_lft forever preferred_lft forever
+6: vmbr1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default qlen 1000
+    link/ether 1c:86:0b:22:56:82 brd ff:ff:ff:ff:ff:ff
+    inet 10.1.1.250/13 scope global vmbr1
+       valid_lft forever preferred_lft forever
+    inet6 fe80::1e86:bff:fe22:5682/64 scope link 
+       valid_lft forever preferred_lft forever
+15: tap107i0: <BROADCAST,MULTICAST,PROMISC,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast master fwbr107i0 state UNKNOWN group default qlen 1000
+    link/ether b2:24:90:a3:6f:bd brd ff:ff:ff:ff:ff:ff
+16: fwbr107i0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default qlen 1000
+    link/ether c6:bd:a0:d4:90:ac brd ff:ff:ff:ff:ff:ff
+17: fwpr107p0@fwln107i0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue master vmbr1 state UP group default qlen 1000
+    link/ether 6a:74:c5:40:79:56 brd ff:ff:ff:ff:ff:ff
+18: fwln107i0@fwpr107p0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue master fwbr107i0 state UP group default qlen 1000
+    link/ether c6:bd:a0:d4:90:ac brd ff:ff:ff:ff:ff:ff
+31: tap1000i0: <BROADCAST,MULTICAST,PROMISC,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast master fwbr1000i0 state UNKNOWN group default qlen 1000
+    link/ether 66:ea:f4:0c:15:a7 brd ff:ff:ff:ff:ff:ff
+32: fwbr1000i0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default qlen 1000
+    link/ether ae:dd:4b:7a:a3:bd brd ff:ff:ff:ff:ff:ff
+33: fwpr1000p0@fwln1000i0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue master vmbr0 state UP group default qlen 1000
+    link/ether 7e:18:ac:fa:95:af brd ff:ff:ff:ff:ff:ff
+34: fwln1000i0@fwpr1000p0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue master fwbr1000i0 state UP group default qlen 1000
+    link/ether ae:dd:4b:7a:a3:bd brd ff:ff:ff:ff:ff:ff
+47: tap1000i1: <BROADCAST,MULTICAST,PROMISC,UP,LOWER_UP> mtu 1500 qdisc pfifo_fast master fwbr1000i1 state UNKNOWN group default qlen 1000
+    link/ether b2:16:b0:ba:c8:1b brd ff:ff:ff:ff:ff:ff
+48: fwbr1000i1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default qlen 1000
+    link/ether 3e:03:f6:ee:7e:6c brd ff:ff:ff:ff:ff:ff
+49: fwpr1000p1@fwln1000i1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue master vmbr1 state UP group default qlen 1000
+    link/ether c6:c7:84:32:1a:2f brd ff:ff:ff:ff:ff:ff
+50: fwln1000i1@fwpr1000p1: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue master fwbr1000i1 state UP group default qlen 1000
+    link/ether 3e:03:f6:ee:7e:6c brd ff:ff:ff:ff:ff:ff
+root@pmx:~# 
+
+
+
+
+
+root@pmx:~# 
+
+root@pmx:/etc# cat netconfig
+#
+# The network configuration file. This file is currently only used in
+# conjunction with the TI-RPC code in the libtirpc library.
+#
+# Entries consist of:
+#
+#       <network_id> <semantics> <flags> <protofamily> <protoname> \
+#               <device> <nametoaddr_libs>
+#
+# The <device> and <nametoaddr_libs> fields are always empty in this
+# implementation.
+#
+udp        tpi_clts      v     inet     udp     -       -
+tcp        tpi_cots_ord  v     inet     tcp     -       -
+udp6       tpi_clts      v     inet6    udp     -       -
+tcp6       tpi_cots_ord  v     inet6    tcp     -       -
+rawip      tpi_raw       -     inet      -      -       -
+local      tpi_cots_ord  -     loopback  -      -       -
+unix       tpi_cots_ord  -     loopback  -      -       -
+root@pmx:/etc# 
+
+root@pmx:/etc# cat networks
+default         0.0.0.0
+loopback        127.0.0.0
+link-local      169.254.0.0
+
+root@pmx:/etc# 
+
+root@pmx:/etc/network# cat interfaces
+# network interface settings; autogenerated
+# Please do NOT modify this file directly, unless you know what
+# you're doing.
+#
+# If you want to manage parts of the network configuration manually,
+# please utilize the 'source' or 'source-directory' directives to do
+# so.
+# PVE will preserve these directives, but will NOT read its network
+# configuration from sourced files, so do not attempt to move any of
+# the PVE managed interfaces into external files!
+
+auto lo
+iface lo inet loopback
+
+iface eno1 inet manual
+
+iface enp9s4 inet manual
+
+auto vmbr0
+iface vmbr0 inet static
+        address 192.168.1.250/24
+        gateway 192.168.1.1
+        bridge-ports eno1
+        bridge-stp off
+        bridge-fd 0
+
+auto vmbr1
+iface vmbr1 inet static
+        address 10.1.1.250/13
+        bridge-ports enp9s4
+        bridge-stp off
+        bridge-fd 0
+
+source /etc/network/interfaces.d/*
+root@pmx:/etc/network# 
+
+proxmox-ve: 8.1.0 (running kernel: 6.5.11-4-pve)
+pve-manager: 8.1.3 (running version: 8.1.3/b46aac3b42da5d15)
+proxmox-kernel-helper: 8.0.9
+proxmox-kernel-6.5.11-4-pve-signed: 6.5.11-4
+proxmox-kernel-6.5: 6.5.11-4
+ceph-fuse: 17.2.7-pve1
+corosync: 3.1.7-pve3
+criu: 3.17.1-2
+glusterfs-client: 10.3-5
+ifupdown2: 3.2.0-1+pmx7
+ksm-control-daemon: 1.4-1
+libjs-extjs: 7.0.0-4
+libknet1: 1.28-pve1
+libproxmox-acme-perl: 1.5.0
+libproxmox-backup-qemu0: 1.4.0
+libproxmox-rs-perl: 0.3.1
+libpve-access-control: 8.0.7
+libpve-apiclient-perl: 3.3.1
+libpve-common-perl: 8.1.0
+libpve-guest-common-perl: 5.0.6
+libpve-http-server-perl: 5.0.5
+libpve-network-perl: 0.9.4
+libpve-rs-perl: 0.8.7
+libpve-storage-perl: 8.0.5
+libspice-server1: 0.15.1-1
+lvm2: 2.03.16-2
+lxc-pve: 5.0.2-4
+lxcfs: 5.0.3-pve3
+novnc-pve: 1.4.0-3
+proxmox-backup-client: 3.0.4-1
+proxmox-backup-file-restore: 3.0.4-1
+proxmox-kernel-helper: 8.0.9
+proxmox-mail-forward: 0.2.2
+proxmox-mini-journalreader: 1.4.0
+proxmox-offline-mirror-helper: 0.6.2
+proxmox-widget-toolkit: 4.1.3
+pve-cluster: 8.0.5
+pve-container: 5.0.8
+pve-docs: 8.1.3
+pve-edk2-firmware: 4.2023.08-1
+pve-firewall: 5.0.3
+pve-firmware: 3.9-1
+pve-ha-manager: 4.0.3
+pve-i18n: 3.1.2
+pve-qemu-kvm: 8.1.2-4
+pve-xtermjs: 5.3.0-2
+qemu-server: 8.0.10
+smartmontools: 7.3-pve1
+spiceterm: 3.3.0
+swtpm: 0.8.0+pve1
+vncterm: 1.8.0
+zfsutils-linux: 2.2.0-pve3
